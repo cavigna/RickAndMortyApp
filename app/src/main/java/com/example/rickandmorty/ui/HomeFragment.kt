@@ -42,9 +42,13 @@ class HomeFragment : Fragment() {
 
         viewModel.personajeRandom.observe(viewLifecycleOwner, {personaje->
             with(binding) {
+
+                when(personaje.status){
+                    "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+                }
                 textViewNombreHome.text = personaje.name
                 textViewStatusHome.text = personaje.status
-                textViewGenderHome.text = personaje.gender
+                textViewLocationHome.text = personaje.location.name
                 textViewSpeciesHome.text = personaje.species
                 imageViewPersonajeDelDia.load(personaje.image)
             }
@@ -66,7 +70,7 @@ class HomeFragment : Fragment() {
         with(binding) {
             textViewNombreHome.text = personaje.name
             textViewStatusHome.text = personaje.status
-            textViewGenderHome.text = personaje.gender
+            textViewLocationHome.text = personaje.locationName
             textViewSpeciesHome.text = personaje.species
             imageViewPersonajeDelDia.load(personaje.image)
         }

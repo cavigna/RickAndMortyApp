@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rick_back_4"
     tools:context=".ui.HomeFragment">
 
 
@@ -11,22 +12,24 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="15dp"
         android:text="El Personaje Del Día"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="179dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="18dp"
         android:src="@drawable/rick_logo"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="55dp"
-        android:layout_marginBottom="204dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,48 +49,93 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView_personaje_del_dia"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dvimagen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="-3dp"
-                tools:layout_editor_absoluteY="4dp"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView_personaje_del_dia"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textView_nombre_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="43dp"
+                android:layout_marginEnd="159dp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="126dp"
-                tools:layout_editor_absoluteY="4dp" />
-
-            <TextView
-                android:id="@+id/textView_status_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="17dp"
-                tools:layout_editor_absoluteY="173dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dvimagen" />
 
             <TextView
                 android:id="@+id/textView_species_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="53dp"
+                android:layout_marginEnd="191dp"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="17dp"
-                tools:layout_editor_absoluteY="201dp" />
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView_gender_home"
+                android:id="@+id/textView_location_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="53dp"
+                android:layout_marginEnd="191dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="17dp"
-                tools:layout_editor_absoluteY="232dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="53dp"
+                android:layout_marginEnd="174dp"
+                android:layout_marginBottom="9dp"
+                android:text="Ultima Ubicación"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView_location_home"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_status_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="191dp"
+                android:layout_marginBottom="6dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/textView_species_home"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_nombre_home" />
+
+            <ImageView
+                android:id="@+id/imageView_circle"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="43dp"
+                android:src="@drawable/red_dot"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_status_home"
+                app:layout_constraintEnd_toStartOf="@+id/textView_status_home"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
