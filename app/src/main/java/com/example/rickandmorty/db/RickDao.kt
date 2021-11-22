@@ -19,5 +19,9 @@ interface RickDao {
     @Query("SELECT * FROM personajes_tabla")
     fun listarPersonajesDB(): Flow<List<Personaje>>
 
+    @Query("SELECT * FROM personajes_tabla where id =:id")
+    fun personajeRandomDB(id:Int): Flow<Personaje>
+
+
 
 }

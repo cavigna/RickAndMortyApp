@@ -1,6 +1,6 @@
 package com.example.rickandmorty.utils
 
-import com.example.rickandmorty.model.api.Resultado
+import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
 
 fun mapearAPItoDB(listadoApi: List<Resultado>): List<Personaje> {

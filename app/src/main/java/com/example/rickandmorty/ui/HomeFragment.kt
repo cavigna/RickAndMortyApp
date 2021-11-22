@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import coil.load
 import com.example.rickandmorty.R
 import com.example.rickandmorty.application.RickApp
@@ -14,9 +15,6 @@ import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.model.db.Personaje
 import com.example.rickandmorty.viewmodel.RickModelFactory
 import com.example.rickandmorty.viewmodel.RickViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class HomeFragment : Fragment() {
@@ -40,6 +38,49 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
 
+//        viewModel.personajeRandomApi.observe(viewLifecycleOwner, { personaje->
+//            with(binding) {
+//
+//                when(personaje.status){
+//                    "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+//                }
+//                textViewNombreHome.text = personaje.name
+//                textViewStatusHome.text = personaje.status
+//                textViewLocationHome.text = personaje.location.name
+//                textViewSpeciesHome.text = personaje.species
+//                imageViewPersonajeDelDia.load(personaje.image)
+//            }
+//        })
+
+        viewModel.listadoPersonajesDB.observe(viewLifecycleOwner, {
+
+        })
+
+        viewModel.personajeRandomDB.asLiveData().observe(viewLifecycleOwner,{
+            unidorTarjeta(it)
+        })
+
+
+
+
+        return binding.root
+    }
+
+    private fun unidorTarjeta(personaje: Personaje) {
+        with(binding) {
+            when (personaje.status) {
+                "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+            }
+            textViewNombreHome.text = personaje.name
+            textViewStatusHome.text = personaje.status
+            textViewLocationHome.text = personaje.locationName
+            textViewSpeciesHome.text = personaje.species
+            imageViewPersonajeDelDia.load(personaje.image)
+        }
+    }
+}
+
+/*
         viewModel.personajeRandom.observe(viewLifecycleOwner, {personaje->
             with(binding) {
 
@@ -53,29 +94,7 @@ class HomeFragment : Fragment() {
                 imageViewPersonajeDelDia.load(personaje.image)
             }
         })
-
-
-
-
-
-
-
-
-
-
-        return binding.root
-    }
-
-    private fun unidorTarjeta(personaje: Personaje) {
-        with(binding) {
-            textViewNombreHome.text = personaje.name
-            textViewStatusHome.text = personaje.status
-            textViewLocationHome.text = personaje.locationName
-            textViewSpeciesHome.text = personaje.species
-            imageViewPersonajeDelDia.load(personaje.image)
-        }
-    }
-}
+ */
 
 /*
         viewModel.listadoPersonajesDB.observe(viewLifecycleOwner,{

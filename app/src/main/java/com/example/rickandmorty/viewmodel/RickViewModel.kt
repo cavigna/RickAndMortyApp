@@ -1,12 +1,14 @@
 package com.example.rickandmorty.viewmodel
 
 import androidx.lifecycle.*
-import com.example.rickandmorty.model.api.Resultado
+import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
 import com.example.rickandmorty.repository.Repositorio
 import com.example.rickandmorty.utils.mapearAPItoDB
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
 
@@ -18,9 +20,11 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
     private var _personajes = MutableLiveData<List<Personaje>>()
 
     init {
-        listarPersonajesAPI()
+        //listarPersonajesAPI()
         agregarListadoDB()
         buscarpersonajeRandom()
+        agregarTodosPersonajesDB()
+
     }
 
     fun listarPersonajesAPI() {
@@ -36,19 +40,37 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         viewModelScope.launch(IO) {
             val listadoApi = repositorio.listadoPersonajesApi().resultados
             repositorio.agregarListadoPersonaDB(mapearAPItoDB(listadoApi))
+
         }
 
     }
 
-    var personajeRandom = MutableLiveData<Resultado>()
-
-
-    fun buscarpersonajeRandom(){
+    fun agregarTodosPersonajesDB() {
         viewModelScope.launch(IO) {
-            val personaje =repositorio.personajeRandomApi()
-            personajeRandom.postValue(personaje)
+            withContext(Main) {
+                for (i in 1..42) {
+                    val listadoApi = repositorio.listadoPersonajesTodosApi(pagina = i).resultados
+                    repositorio.agregarListadoPersonaDB(mapearAPItoDB(listadoApi))
+                }
+            }
         }
     }
+
+
+
+    var personajeRandomApi = MutableLiveData<Resultado>()
+    fun buscarpersonajeRandom() {
+        viewModelScope.launch(IO) {
+            val personaje = repositorio.personajeRandomApi()
+            personajeRandomApi.postValue(personaje)
+
+        }
+    }
+
+    val personajeRandomDB = repositorio.personajeRandomDB()
+
+
+
 }
 
 
@@ -57,7 +79,15 @@ class RickModelFactory(private val repositorio: Repositorio) : ViewModelProvider
         return RickViewModel(repositorio) as T
     }
 }
+/*
+    val personajeRandomSealed = MutableLiveData<NetworkResult<Resultado>>(NetworkResult.Loading())
+    fun prueba() {
+        viewModelScope.launch(IO) {
 
+            personajeRandomSealed.postValue(repositorio.personajeRandomSealed())
+        }
+    }
+ */
 
 /*
     fun listaPersonajesAPI() {

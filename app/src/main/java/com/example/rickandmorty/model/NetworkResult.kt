@@ -1,8 +1,5 @@
 package com.example.rickandmorty.model
 
-import com.example.rickandmorty.model.api.RickInfoResponse
-import retrofit2.Response
-
 sealed class NetworkResult<T>(
     val data: T? = null,
     val message: String? = null
