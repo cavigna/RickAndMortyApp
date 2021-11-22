@@ -3,6 +3,7 @@ package com.example.rickandmorty.viewmodel
 import androidx.lifecycle.*
 import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
 import com.example.rickandmorty.repository.Repositorio
 import com.example.rickandmorty.utils.mapearAPItoDB
 import kotlinx.coroutines.Dispatchers.IO
@@ -19,21 +20,17 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
     val listadoPersonajesDB = repositorio.listadoPersonajeDB().asLiveData()
     private var _personajes = MutableLiveData<List<Personaje>>()
 
+    //var personajeRandomDB = MutableLiveData<Personaje>(repositorio.personajeRandomDB().asLiveData().value)
+
     init {
-        //listarPersonajesAPI()
+
         agregarListadoDB()
         buscarpersonajeRandom()
         agregarTodosPersonajesDB()
+        //personajeRandomDB = MutableLiveData<Personaje>(repositorio.personajeRandomDB().asLiveData().value)
+        //funperRandomDB()
 
     }
-
-    fun listarPersonajesAPI() {
-        viewModelScope.launch(IO) {
-            listadoPersonajeApi.postValue(repositorio.listadoPersonajesApi().resultados)
-
-        }
-    }
-
 
     fun agregarListadoDB() {
 
@@ -57,7 +54,6 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
     }
 
 
-
     var personajeRandomApi = MutableLiveData<Resultado>()
     fun buscarpersonajeRandom() {
         viewModelScope.launch(IO) {
@@ -67,9 +63,19 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         }
     }
 
-    val personajeRandomDB = repositorio.personajeRandomDB()
+
+    val  pruebaRandom = repositorio.personajeRandomDB().asLiveData()
+
+    fun funPerRandomDB()  = repositorio.personajeRandomDB(id = (1..826).random()).asLiveData()
 
 
+    fun agregarFavorito(personajeFavorito: PersonajeFavorito) {
+        viewModelScope.launch {
+            repositorio.agregarFavorito(personajeFavorito)
+        }
+    }
+
+    val listadoFavorito = repositorio.listarFavoritos().asLiveData()
 
 }
 
@@ -99,6 +105,15 @@ class RickModelFactory(private val repositorio: Repositorio) : ViewModelProvider
             } catch (ioe: IOException) {
                 _personajes.postValue(NetworkResult.Error("Error"))
             }
+
+        }
+    }
+ */
+/*
+    fun funperRandomDB() {
+        viewModelScope.launch {
+            val personajeRandom =repositorio.personajeRandomDB().asLiveData()
+            personajeRandomDB.postValue(personajeRandom.value)
 
         }
     }

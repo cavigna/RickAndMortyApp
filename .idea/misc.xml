@@ -5,7 +5,8 @@
       <map>
         <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/drawable/circle.xml" value="0.5614583333333333" />
         <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/layout/activity_main.xml" value="0.31614583333333335" />
-        <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/layout/fragment_home.xml" value="0.7913175932977913" />
+        <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/layout/fragment_home.xml" value="0.2951977401129944" />
+        <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/layout/item_row.xml" value="0.2" />
         <entry key="..\:/Proyectos_Android/RickAndMorty/app/src/main/res/menu/menu_rick.xml" value="0.41510416666666666" />
       </map>
     </option>

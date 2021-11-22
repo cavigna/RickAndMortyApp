@@ -4,6 +4,7 @@ import com.example.rickandmorty.db.RickDao
 import com.example.rickandmorty.model.NetworkResult
 import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
 import com.example.rickandmorty.network.ApiService
 
 class Repositorio(private val api: ApiService, private val dao: RickDao) {
@@ -14,14 +15,18 @@ class Repositorio(private val api: ApiService, private val dao: RickDao) {
 
 
     suspend fun personajeRandomApi() = api.personajeAPIRandom((1..826).random())
-    fun personajeRandomDB() = dao.personajeRandomDB((1..826).random())
+    fun personajeRandomDB(id:Int = (1..826).random()) = dao.personajeRandomDB(id)
 
 
     suspend fun agregarListadoPersonaDB(listadoPersonaje: List<Personaje>) = dao.agregarListadoPersonajes(listadoPersonaje)
-    //suspend fun agregarTodosPersonaDB(listadoPersonaje: List<Personaje>) = dao.agregarListadoPersonajes(listadoPersonaje)
+
 
     fun listadoPersonajeDB() = dao.listarPersonajesDB()
 
+    suspend fun agregarFavorito(personajeFavorito: PersonajeFavorito) =
+        dao.agregarPersonajeFavorito(personajeFavorito)
+
+    fun listarFavoritos() = dao.listarPersonajesFavoritos()
 
 
     suspend fun personajeRandomSealed() : NetworkResult<Resultado>{

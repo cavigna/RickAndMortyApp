@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
 
 
-@Database(entities = [Personaje::class], version = 1, exportSchema = false)
+@Database(entities = [Personaje::class, PersonajeFavorito::class], version = 1, exportSchema = false)
 abstract class BaseDeDatos : RoomDatabase() {
     abstract fun dao() : RickDao
 

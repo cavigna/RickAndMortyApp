@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import coil.load
@@ -13,6 +14,9 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.application.RickApp
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
+import com.example.rickandmorty.utils.convertirAFav
+import com.example.rickandmorty.utils.mapearAPItoDB
 import com.example.rickandmorty.viewmodel.RickModelFactory
 import com.example.rickandmorty.viewmodel.RickViewModel
 
@@ -56,9 +60,27 @@ class HomeFragment : Fragment() {
 
         })
 
-        viewModel.personajeRandomDB.asLiveData().observe(viewLifecycleOwner,{
-            unidorTarjeta(it)
+        viewModel.pruebaRandom.observe(viewLifecycleOwner, {personaje->
+
+            unidorTarjeta(personaje)
+
+            binding.cardView.setOnLongClickListener {
+                viewModel.agregarFavorito(convertirAFav(personaje))
+                Toast.makeText(requireContext(), "Personaje Guardado", Toast.LENGTH_SHORT).show()
+                true
+            }
+
+
         })
+
+        binding.imageViewRefresh.setOnClickListener {
+            viewModel.funPerRandomDB().observe(viewLifecycleOwner, {
+                unidorTarjeta(personaje = it)
+            })
+
+        }
+
+
 
 
 
@@ -74,10 +96,12 @@ class HomeFragment : Fragment() {
             textViewNombreHome.text = personaje.name
             textViewStatusHome.text = personaje.status
             textViewLocationHome.text = personaje.locationName
-            textViewSpeciesHome.text = personaje.species
+            textViewSpeciesHome.text = "Especie: ${personaje.species}"
             imageViewPersonajeDelDia.load(personaje.image)
         }
     }
+
+
 }
 
 /*

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,6 +22,13 @@ interface RickDao {
 
     @Query("SELECT * FROM personajes_tabla where id =:id")
     fun personajeRandomDB(id:Int): Flow<Personaje>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun agregarPersonajeFavorito(personajeFavorito: PersonajeFavorito)
+
+    @Query("SELECT * FROM personajes_tabla")
+    fun listarPersonajesFavoritos(): Flow<List<PersonajeFavorito>>
 
 
 

@@ -2,6 +2,7 @@ package com.example.rickandmorty.utils
 
 import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.model.db.PersonajeFavorito
 
 fun mapearAPItoDB(listadoApi: List<Resultado>): List<Personaje> {
 
@@ -25,4 +26,20 @@ fun mapearAPItoDB(listadoApi: List<Resultado>): List<Personaje> {
     }
     return listadoResultado
 
+}
+
+ fun convertirAFav(personaje: Personaje): PersonajeFavorito {
+    return PersonajeFavorito(
+        id = personaje.id,
+        name = personaje.name,
+        status = personaje.status,
+        species = personaje.species,
+        gender =  personaje.gender,
+        originName = personaje.originName,
+        urlOrigin = personaje.urlOrigin,
+        locationUrl = personaje.locationUrl,
+        locationName = personaje.locationName,
+        image = personaje.image,
+        urlPersonaje = personaje.urlPersonaje
+    )
 }
