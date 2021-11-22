@@ -28,7 +28,13 @@ class Repositorio(private val api: ApiService, private val dao: RickDao) {
 
     fun listarFavoritos() = dao.listarPersonajesFavoritos()
 
+    suspend fun eliminarFavorito(personaje: PersonajeFavorito) = dao.eliminarPersonajeFavorito(personaje)
 
+
+
+}
+
+/*
     suspend fun personajeRandomSealed() : NetworkResult<Resultado>{
         val respuesta = api.personajeAPIRandomSealed((1..826).random())
 
@@ -38,4 +44,4 @@ class Repositorio(private val api: ApiService, private val dao: RickDao) {
             NetworkResult.Error(respuesta.message.toString())
         }
     }
-}
+ */

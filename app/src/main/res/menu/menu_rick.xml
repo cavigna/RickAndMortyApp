@@ -8,9 +8,18 @@
 
 
     <item
-        android:id="@+id/lista_menu"
-        android:icon="@drawable/ic_baseline_list_alt_24"
-        android:title="@string/home"/>
+        android:id="@+id/fav_menu"
+        android:icon="@drawable/ic_baseline_bookmark_24"
+        android:title="Favoritos"/>
 
+    <item
+        android:id="@+id/list_menu"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:title="Personajes"/>
+
+    <item
+        android:id="@+id/search_menu"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Buscar"/>
 
 </menu>

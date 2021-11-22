@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmorty.R
 import com.example.rickandmorty.application.RickApp
 import com.example.rickandmorty.databinding.FragmentFavoriteBinding
-import com.example.rickandmorty.listadapter.FavListAdapter
-import com.example.rickandmorty.model.db.PersonajeFavorito
+import com.example.rickandmorty.databinding.FragmentPersonajesBinding
+import com.example.rickandmorty.listadapter.PersonajeListAdapter
+import com.example.rickandmorty.model.db.Personaje
+import com.example.rickandmorty.utils.convertirAFav
 import com.example.rickandmorty.viewmodel.RickModelFactory
 import com.example.rickandmorty.viewmodel.RickViewModel
 
 
-class FavoriteFragment : Fragment() {
-    private lateinit var binding: FragmentFavoriteBinding
+class PersonajesFragment : Fragment() {
+    private lateinit var binding: FragmentPersonajesBinding
 
     private lateinit var application: Application
 
@@ -36,20 +38,20 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPersonajesBinding.inflate(layoutInflater, container, false)
 
-        val recyclerView = binding.recyclerView
-        val adapter = FavListAdapter(object : FavListAdapter.EliminarPersonajeFav{
-            override fun eliminar(personaje: PersonajeFavorito) {
-                //viewModel.
+        val recyclerView = binding.recyclerview
+        val adapter = PersonajeListAdapter(object : PersonajeListAdapter.MiAgregador{
+            override fun agregarPersonajeB(personaje: Personaje) {
+                viewModel.agregarFavorito(convertirAFav(personaje))
+
             }
         })
-
         recyclerView.adapter = adapter
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.listadoFavorito.observe(viewLifecycleOwner, {
+
+        viewModel.listadoPersonajesDB.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 

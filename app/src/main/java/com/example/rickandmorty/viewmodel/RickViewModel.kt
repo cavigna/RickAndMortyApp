@@ -14,22 +14,14 @@ import kotlinx.coroutines.withContext
 class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
 
 
-    var listadoPersonajeApi = MutableLiveData<List<Resultado>>()
-
-    //var listadoPersonajeApi = mutableListOf<Resultado>()
     val listadoPersonajesDB = repositorio.listadoPersonajeDB().asLiveData()
+    val listadoFavorito = repositorio.listarFavoritos().asLiveData()
     private var _personajes = MutableLiveData<List<Personaje>>()
 
-    //var personajeRandomDB = MutableLiveData<Personaje>(repositorio.personajeRandomDB().asLiveData().value)
 
     init {
-
         agregarListadoDB()
-        buscarpersonajeRandom()
         agregarTodosPersonajesDB()
-        //personajeRandomDB = MutableLiveData<Personaje>(repositorio.personajeRandomDB().asLiveData().value)
-        //funperRandomDB()
-
     }
 
     fun agregarListadoDB() {
@@ -37,12 +29,11 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         viewModelScope.launch(IO) {
             val listadoApi = repositorio.listadoPersonajesApi().resultados
             repositorio.agregarListadoPersonaDB(mapearAPItoDB(listadoApi))
-
         }
-
     }
 
     fun agregarTodosPersonajesDB() {
+
         viewModelScope.launch(IO) {
             withContext(Main) {
                 for (i in 1..42) {
@@ -54,19 +45,9 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
     }
 
 
-    var personajeRandomApi = MutableLiveData<Resultado>()
-    fun buscarpersonajeRandom() {
-        viewModelScope.launch(IO) {
-            val personaje = repositorio.personajeRandomApi()
-            personajeRandomApi.postValue(personaje)
+    val personajeRandomDB = repositorio.personajeRandomDB().asLiveData()
 
-        }
-    }
-
-
-    val  pruebaRandom = repositorio.personajeRandomDB().asLiveData()
-
-    fun funPerRandomDB()  = repositorio.personajeRandomDB(id = (1..826).random()).asLiveData()
+    fun funPerRandomDB() = repositorio.personajeRandomDB(id = (1..826).random()).asLiveData()
 
 
     fun agregarFavorito(personajeFavorito: PersonajeFavorito) {
@@ -75,7 +56,13 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         }
     }
 
-    val listadoFavorito = repositorio.listarFavoritos().asLiveData()
+    fun eliminarFavorito(personaje: PersonajeFavorito){
+        viewModelScope.launch(IO){
+            repositorio.eliminarFavorito(personaje)
+        }
+    }
+
+
 
 }
 
@@ -85,7 +72,23 @@ class RickModelFactory(private val repositorio: Repositorio) : ViewModelProvider
         return RickViewModel(repositorio) as T
     }
 }
+
 /*
+Si lo implementara con Retro fit
+    var personajeRandomApi = MutableLiveData<Resultado>()
+    fun buscarpersonajeRandom() {
+        viewModelScope.launch(IO) {
+            val personaje = repositorio.personajeRandomApi()
+            personajeRandomApi.postValue(personaje)
+
+        }
+    }
+ */
+/*
+
+    var listadoPersonajeApi = MutableLiveData<List<Resultado>>()
+
+    //var listadoPersonajeApi = mutableListOf<Resultado>()
     val personajeRandomSealed = MutableLiveData<NetworkResult<Resultado>>(NetworkResult.Loading())
     fun prueba() {
         viewModelScope.launch(IO) {

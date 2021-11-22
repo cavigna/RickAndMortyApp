@@ -8,15 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import coil.load
 import com.example.rickandmorty.R
 import com.example.rickandmorty.application.RickApp
 import com.example.rickandmorty.databinding.FragmentHomeBinding
 import com.example.rickandmorty.model.db.Personaje
-import com.example.rickandmorty.model.db.PersonajeFavorito
 import com.example.rickandmorty.utils.convertirAFav
-import com.example.rickandmorty.utils.mapearAPItoDB
 import com.example.rickandmorty.viewmodel.RickModelFactory
 import com.example.rickandmorty.viewmodel.RickViewModel
 
@@ -60,7 +57,7 @@ class HomeFragment : Fragment() {
 
         })
 
-        viewModel.pruebaRandom.observe(viewLifecycleOwner, {personaje->
+        viewModel.personajeRandomDB.observe(viewLifecycleOwner, { personaje->
 
             unidorTarjeta(personaje)
 
