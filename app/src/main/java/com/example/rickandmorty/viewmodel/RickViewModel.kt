@@ -5,6 +5,7 @@ import com.example.rickandmorty.model.Resultado
 import com.example.rickandmorty.model.db.Personaje
 import com.example.rickandmorty.model.db.PersonajeFavorito
 import com.example.rickandmorty.repository.Repositorio
+import com.example.rickandmorty.utils.convertirAFav
 import com.example.rickandmorty.utils.mapearAPItoDB
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -22,6 +23,7 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
     init {
         agregarListadoDB()
         agregarTodosPersonajesDB()
+
     }
 
     fun agregarListadoDB() {
@@ -56,11 +58,22 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         }
     }
 
+    fun alinicioAgregarFav(){
+        viewModelScope.launch {
+            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(28).asLiveData().value!!))
+            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(80).asLiveData().value!!))
+            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(713).asLiveData().value!!))
+        }
+    }
+
     fun eliminarFavorito(personaje: PersonajeFavorito){
         viewModelScope.launch(IO){
             repositorio.eliminarFavorito(personaje)
         }
     }
+
+
+    fun buscarPersonaje(query:String) = repositorio.buscarPersonaje(query).asLiveData()
 
 
 
@@ -80,43 +93,6 @@ Si lo implementara con Retro fit
         viewModelScope.launch(IO) {
             val personaje = repositorio.personajeRandomApi()
             personajeRandomApi.postValue(personaje)
-
-        }
-    }
- */
-/*
-
-    var listadoPersonajeApi = MutableLiveData<List<Resultado>>()
-
-    //var listadoPersonajeApi = mutableListOf<Resultado>()
-    val personajeRandomSealed = MutableLiveData<NetworkResult<Resultado>>(NetworkResult.Loading())
-    fun prueba() {
-        viewModelScope.launch(IO) {
-
-            personajeRandomSealed.postValue(repositorio.personajeRandomSealed())
-        }
-    }
- */
-
-/*
-    fun listaPersonajesAPI() {
-
-        viewModelScope.launch(IO) {
-            try {
-                val response = repositorio.listadoPersonajesApi()
-                _personajes.postValue(NetworkResult.Success(response.data))
-            } catch (ioe: IOException) {
-                _personajes.postValue(NetworkResult.Error("Error"))
-            }
-
-        }
-    }
- */
-/*
-    fun funperRandomDB() {
-        viewModelScope.launch {
-            val personajeRandom =repositorio.personajeRandomDB().asLiveData()
-            personajeRandomDB.postValue(personajeRandom.value)
 
         }
     }

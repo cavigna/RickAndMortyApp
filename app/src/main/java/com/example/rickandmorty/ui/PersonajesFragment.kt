@@ -2,15 +2,14 @@ package com.example.rickandmorty.ui
 
 import android.app.Application
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rickandmorty.R
 import com.example.rickandmorty.application.RickApp
-import com.example.rickandmorty.databinding.FragmentFavoriteBinding
 import com.example.rickandmorty.databinding.FragmentPersonajesBinding
 import com.example.rickandmorty.listadapter.PersonajeListAdapter
 import com.example.rickandmorty.model.db.Personaje
@@ -44,6 +43,7 @@ class PersonajesFragment : Fragment() {
         val adapter = PersonajeListAdapter(object : PersonajeListAdapter.MiAgregador{
             override fun agregarPersonajeB(personaje: Personaje) {
                 viewModel.agregarFavorito(convertirAFav(personaje))
+                Toast.makeText(requireContext(), "Personaje Agregado", Toast.LENGTH_SHORT).show()
 
             }
         })
@@ -55,8 +55,12 @@ class PersonajesFragment : Fragment() {
             adapter.submitList(it)
         })
 
+
+
         return binding.root
     }
+
+
 
 
 }

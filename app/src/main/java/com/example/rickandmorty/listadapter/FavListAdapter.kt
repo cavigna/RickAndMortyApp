@@ -21,7 +21,10 @@ class FavListAdapter(private val eliminarPersonajeFav: EliminarPersonajeFav): Li
         val personaje = getItem(position)
           holder.unidorTarjeta(personaje)
 
-        eliminarPersonajeFav.eliminar(personaje)
+        holder.binding.cardView.setOnLongClickListener {
+            eliminarPersonajeFav.eliminar(personaje)
+            true
+        }
 
     }
 
@@ -34,7 +37,7 @@ class FavListAdapter(private val eliminarPersonajeFav: EliminarPersonajeFav): Li
 }
 
 class FavViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-    private val binding = ItemRowBinding.bind(itemView)
+     val binding = ItemRowBinding.bind(itemView)
 
     companion object{
         fun create(parent: ViewGroup): FavViewHolder{

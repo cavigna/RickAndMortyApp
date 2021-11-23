@@ -30,6 +30,8 @@ class Repositorio(private val api: ApiService, private val dao: RickDao) {
 
     suspend fun eliminarFavorito(personaje: PersonajeFavorito) = dao.eliminarPersonajeFavorito(personaje)
 
+    fun buscarPersonaje(query:String) = dao.buscarPersonaje(query)
+
 
 
 }

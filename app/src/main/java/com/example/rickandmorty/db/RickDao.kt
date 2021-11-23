@@ -21,6 +21,9 @@ interface RickDao {
     fun personajeRandomDB(id:Int): Flow<Personaje>
 
     @Query("SELECT * FROM personajes_tabla WHERE name LIKE '%' || :search || '%'")
+    fun buscarPersonaje2(search: String?): Flow<List<Personaje>>
+
+    @Query("SELECT * FROM personajes_tabla WHERE name LIKE :search")
     fun buscarPersonaje(search: String?): Flow<List<Personaje>>
 
 

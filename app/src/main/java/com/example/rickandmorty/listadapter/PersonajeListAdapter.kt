@@ -10,7 +10,7 @@ import coil.load
 import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.ItemRowBinding
 import com.example.rickandmorty.model.db.Personaje
-import com.example.rickandmorty.model.db.PersonajeFavorito
+
 
 class PersonajeListAdapter(private val miAgregador: MiAgregador) :
     ListAdapter<Personaje, PersonajeViewHolder>(PersonajeComparator()) {
@@ -47,6 +47,7 @@ class PersonajeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         with(binding) {
             when (personaje.status) {
                 "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+                "Dead" -> imageViewCircle.setImageResource(R.drawable.red_dot)
             }
             textViewNombreHome.text = personaje.name
             textViewStatusHome.text = personaje.status

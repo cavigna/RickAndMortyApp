@@ -53,9 +53,7 @@ class HomeFragment : Fragment() {
 //            }
 //        })
 
-        viewModel.listadoPersonajesDB.observe(viewLifecycleOwner, {
 
-        })
 
         viewModel.personajeRandomDB.observe(viewLifecycleOwner, { personaje->
 
@@ -68,9 +66,18 @@ class HomeFragment : Fragment() {
             }
 
 
+
+
         })
 
         binding.imageViewRefresh.setOnClickListener {
+            viewModel.funPerRandomDB().observe(viewLifecycleOwner, {
+                unidorTarjeta(personaje = it)
+            })
+
+        }
+
+        binding.cardView.setOnClickListener {
             viewModel.funPerRandomDB().observe(viewLifecycleOwner, {
                 unidorTarjeta(personaje = it)
             })
@@ -85,16 +92,17 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun unidorTarjeta(personaje: Personaje) {
+    private fun unidorTarjeta(personaje: Personaje?) {
         with(binding) {
-            when (personaje.status) {
+            when (personaje?.status) {
                 "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+                "Dead" -> imageViewCircle.setImageResource(R.drawable.red_dot)
             }
-            textViewNombreHome.text = personaje.name
-            textViewStatusHome.text = personaje.status
-            textViewLocationHome.text = personaje.locationName
-            textViewSpeciesHome.text = "Especie: ${personaje.species}"
-            imageViewPersonajeDelDia.load(personaje.image)
+            textViewNombreHome.text = personaje?.name ?: ""
+            textViewStatusHome.text = personaje?.status
+            textViewLocationHome.text = personaje?.locationName
+            textViewSpeciesHome.text = "Especie: ${personaje?.species}"
+            imageViewPersonajeDelDia.load(personaje?.image)
         }
     }
 

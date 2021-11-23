@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home_menu-> navController.navigate(R.id.homeFragment)
                 R.id.fav_menu-> navController.navigate(R.id.favoriteFragment)
                 R.id.list_menu-> navController.navigate(R.id.personajesFragment)
+                R.id.search_menu-> navController.navigate(R.id.searchFragment)
             }
             true
         }

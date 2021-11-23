@@ -20,4 +20,9 @@
         android:name="com.example.rickandmorty.ui.PersonajesFragment"
         android:label="fragment_personajes"
         tools:layout="@layout/fragment_personajes" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.rickandmorty.ui.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
