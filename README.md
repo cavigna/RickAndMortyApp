@@ -16,15 +16,11 @@ Fuente  Api: https://rickandmortyapi.com/
 
 Esta app sigue el patrón de diseño MVVM: 
 
+<p align="center">
+  <img src="./images/mvvm.png"/>
+</p>
 
-
-
-
-
-# News App - (<https://newsapi.org/>)
-
-Para que vayamos de forma ordenanda, seguiré el flujo de trabajo con el cual dearrollé la App. Siempre el punto de partida es el modelo, luego su interfaz, el objeto que implementa la interfaz, el repositorio, el viewmodel y eventualmente la vista. A su vez implementé algunos test insturmentales que los dejaré al final de este apartado.
-
+Para que vayamos de forma ordenanda, seguiré el flujo de trabajo con el cual dearrollé la App. Siempre el punto de partida es el modelo, luego su interfaz, el objeto que implementa la interfaz, el repositorio, el viewmodel y eventualmente la vista.
 
 ### 1 - Modelo
 #### Model From Json
@@ -109,6 +105,7 @@ Como vemos, cada uno de los atributos de cada clase, se corresponde con las entr
 ```
 #### Model Entity
 
+Esta entidad, representa la respuesta de la API modelada para Room.
 
 
 ```kotlin
