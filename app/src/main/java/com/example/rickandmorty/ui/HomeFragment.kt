@@ -38,23 +38,6 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
-
-//        viewModel.personajeRandomApi.observe(viewLifecycleOwner, { personaje->
-//            with(binding) {
-//
-//                when(personaje.status){
-//                    "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
-//                }
-//                textViewNombreHome.text = personaje.name
-//                textViewStatusHome.text = personaje.status
-//                textViewLocationHome.text = personaje.location.name
-//                textViewSpeciesHome.text = personaje.species
-//                imageViewPersonajeDelDia.load(personaje.image)
-//            }
-//        })
-
-
-
         viewModel.personajeRandomDB.observe(viewLifecycleOwner, { personaje->
 
             unidorTarjeta(personaje)
@@ -64,10 +47,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Personaje Guardado", Toast.LENGTH_SHORT).show()
                 true
             }
-
-
-
-
         })
 
         binding.imageViewRefresh.setOnClickListener {
@@ -83,11 +62,6 @@ class HomeFragment : Fragment() {
             })
 
         }
-
-
-
-
-
 
         return binding.root
     }
@@ -105,40 +79,20 @@ class HomeFragment : Fragment() {
             imageViewPersonajeDelDia.load(personaje?.image)
         }
     }
-
-
 }
 
 /*
-        viewModel.personajeRandom.observe(viewLifecycleOwner, {personaje->
-            with(binding) {
-
-                when(personaje.status){
-                    "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
-                }
-                textViewNombreHome.text = personaje.name
-                textViewStatusHome.text = personaje.status
-                textViewLocationHome.text = personaje.location.name
-                textViewSpeciesHome.text = personaje.species
-                imageViewPersonajeDelDia.load(personaje.image)
-            }
-        })
- */
-
-/*
-        viewModel.listadoPersonajesDB.observe(viewLifecycleOwner,{
-            val personaje = it[0]
-            unidorTarjeta(personaje)
-        })
- */
-
-/*
-        viewModel.personajeRandom.observe(viewLifecycleOwner, {personaje->
-            with(binding) {
-                textViewNombreHome.text = personaje.name
-                textViewGenderHome.text = personaje.gender
-                textViewSpeciesHome.text = personaje.status
-                imageViewPersonajeDelDia.load(personaje.image)
-            }
-        })
+//        viewModel.personajeRandomApi.observe(viewLifecycleOwner, { personaje->
+//            with(binding) {
+//
+//                when(personaje.status){
+//                    "Alive" -> imageViewCircle.setImageResource(R.drawable.green_dot)
+//                }
+//                textViewNombreHome.text = personaje.name
+//                textViewStatusHome.text = personaje.status
+//                textViewLocationHome.text = personaje.location.name
+//                textViewSpeciesHome.text = personaje.species
+//                imageViewPersonajeDelDia.load(personaje.image)
+//            }
+//        })
  */

@@ -18,8 +18,4 @@ data class Personaje(
     val locationUrl: String = "",
     val image: String = "",
     val urlPersonaje: String = ""
-
-
-
-
     )

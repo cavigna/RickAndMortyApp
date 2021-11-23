@@ -17,7 +17,7 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
 
     val listadoPersonajesDB = repositorio.listadoPersonajeDB().asLiveData()
     val listadoFavorito = repositorio.listarFavoritos().asLiveData()
-    private var _personajes = MutableLiveData<List<Personaje>>()
+
 
 
     init {
@@ -58,24 +58,12 @@ class RickViewModel(private val repositorio: Repositorio) : ViewModel() {
         }
     }
 
-    fun alinicioAgregarFav(){
-        viewModelScope.launch {
-            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(28).asLiveData().value!!))
-            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(80).asLiveData().value!!))
-            repositorio.agregarFavorito(convertirAFav(repositorio.personajeRandomDB(713).asLiveData().value!!))
-        }
-    }
-
     fun eliminarFavorito(personaje: PersonajeFavorito){
         viewModelScope.launch(IO){
             repositorio.eliminarFavorito(personaje)
         }
     }
-
-
     fun buscarPersonaje(query:String) = repositorio.buscarPersonaje(query).asLiveData()
-
-
 
 }
 
